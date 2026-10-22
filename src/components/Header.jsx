@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Zap, Globe, X } from 'lucide-react';
+import { Search, Globe, X, RefreshCw } from 'lucide-react';
 
 export function Header({
   searchQuery,
@@ -9,67 +9,95 @@ export function Header({
   setPlatformFilter,
   stats,
   quickTags,
-  onTagClick
+  onTagClick,
+  isCrawling,
+  onTriggerCrawl
 }) {
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-30 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Top bar: Brand & Main Search */}
+        {/* Top bar: Brand, Search, & Crawl Button */}
         <div className="py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           {/* Logo Brand */}
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-red-500 via-emerald-500 to-indigo-600 flex items-center justify-center text-white font-black text-xl shadow-md">
-              중
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-xl font-bold tracking-tight text-gray-900">
-                  중고통합시세 <span className="text-red-500">검색</span>
-                </h1>
-                <span className="bg-red-100 text-red-700 text-xs font-semibold px-2 py-0.5 rounded-full">
-                  LIVE
-                </span>
+          <div className="flex items-center justify-between md:justify-start space-x-3">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-red-500 via-emerald-500 to-indigo-600 flex items-center justify-center text-white font-black text-xl shadow-md">
+                중
               </div>
-              <p className="text-xs text-gray-500 font-medium">
-                번개장터 &amp; 중고나라 전체 매물 실시간 가격 비교
-              </p>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-xl font-bold tracking-tight text-gray-900">
+                    중고통합시세 <span className="text-red-500">검색</span>
+                  </h1>
+                  <span className="bg-red-100 text-red-700 text-xs font-semibold px-2 py-0.5 rounded-full">
+                    LIVE
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500 font-medium">
+                  번개장터 &amp; 중고나라 클릭 시 실시간 크롤링
+                </p>
+              </div>
             </div>
+
+            {/* Mobile Crawl Refresh Button */}
+            <button
+              onClick={onTriggerCrawl}
+              disabled={isCrawling}
+              className="md:hidden flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-red-500 to-emerald-600 hover:from-red-600 hover:to-emerald-700 text-white font-bold text-xs rounded-xl shadow transition-all active:scale-95 disabled:opacity-50"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isCrawling ? 'animate-spin' : ''}`} />
+              <span>{isCrawling ? '크롤링중...' : '크롤링'}</span>
+            </button>
           </div>
 
-          {/* Search Input Box */}
-          <form
-            onSubmit={handleSearch}
-            className="flex-1 max-w-2xl relative"
-          >
-            <div className="relative flex items-center">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="검색어를 입력하세요 (예: 아이폰 15, 맥북, 에어팟, 닌텐도)"
-                className="w-full pl-11 pr-24 py-3 bg-gray-100 hover:bg-gray-50 focus:bg-white rounded-2xl border-2 border-transparent focus:border-red-500 text-gray-900 placeholder-gray-400 text-sm md:text-base font-medium transition-all shadow-inner outline-none"
-              />
-              <Search className="absolute left-4 w-5 h-5 text-gray-400" />
+          {/* Search Input Box + Crawl Refresh Action */}
+          <div className="flex-1 max-w-2xl flex items-center gap-2">
+            <form
+              onSubmit={handleSearch}
+              className="flex-1 relative"
+            >
+              <div className="relative flex items-center">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="검색어를 입력하세요 (예: 아이폰 15, 맥북, 에어팟)"
+                  className="w-full pl-11 pr-24 py-3 bg-gray-100 hover:bg-gray-50 focus:bg-white rounded-2xl border-2 border-transparent focus:border-red-500 text-gray-900 placeholder-gray-400 text-sm md:text-base font-medium transition-all shadow-inner outline-none"
+                />
+                <Search className="absolute left-4 w-5 h-5 text-gray-400" />
 
-              {searchQuery && (
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-20 text-gray-400 hover:text-gray-600 p-1"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
+
                 <button
-                  type="button"
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-20 text-gray-400 hover:text-gray-600 p-1"
+                  type="submit"
+                  disabled={isCrawling}
+                  className="absolute right-1.5 top-1.5 bottom-1.5 px-4 bg-red-500 hover:bg-red-600 active:bg-red-700 text-white font-semibold rounded-xl text-sm transition-colors flex items-center gap-1 shadow-sm disabled:opacity-50"
                 >
-                  <X className="w-4 h-4" />
+                  {isCrawling ? '조회중...' : '검색'}
                 </button>
-              )}
+              </div>
+            </form>
 
-              <button
-                type="submit"
-                className="absolute right-1.5 top-1.5 bottom-1.5 px-4 bg-red-500 hover:bg-red-600 active:bg-red-700 text-white font-semibold rounded-xl text-sm transition-colors flex items-center gap-1 shadow-sm"
-              >
-                검색
-              </button>
-            </div>
-          </form>
+            {/* Desktop Crawl Refresh Button */}
+            <button
+              onClick={onTriggerCrawl}
+              disabled={isCrawling}
+              className="hidden md:flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-red-500 via-rose-500 to-emerald-600 hover:from-red-600 hover:to-emerald-700 text-white font-bold text-sm rounded-2xl shadow-md hover:shadow-lg transition-all active:scale-95 disabled:opacity-50 shrink-0"
+              title="클릭 시 번개장터 & 중고나라 최신 매물 데이터를 실시간 크롤링하여 갱신합니다."
+            >
+              <RefreshCw className={`w-4 h-4 ${isCrawling ? 'animate-spin' : ''}`} />
+              <span>{isCrawling ? '실시간 크롤링 중...' : '실시간 크롤링 새로고침'}</span>
+            </button>
+          </div>
         </div>
 
         {/* Quick Search Keyword Tags */}

@@ -1,10 +1,11 @@
 {
   "name": "app",
   "version": "1.0.0",
-  "description": "",
+  "description": "번개장터 중고나라 통합 시세 검색 및 Excel 저장 웹/앱",
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "vite",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
@@ -13,7 +14,12 @@
     "type": "git",
     "url": "git+https://github.com/jeces/Searching.git"
   },
-  "keywords": [],
+  "keywords": [
+    "bungaejangter",
+    "joonggonara",
+    "price-search",
+    "excel-export"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {

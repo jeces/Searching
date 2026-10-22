@@ -90,7 +90,19 @@ export function calculateStats(items) {
   };
 }
 
-export function searchAllPlatforms(keyword) {
-  const dataset = generateDynamicItems(keyword);
-  return dataset;
+// On-demand simulated crawler with timestamp updates & refreshed prices
+export async function crawlLiveSearchData(keyword) {
+  // Simulate network crawling delay (600ms)
+  await new Promise((resolve) => setTimeout(resolve, 600));
+
+  const items = generateDynamicItems(keyword);
+  const now = Date.now();
+
+  // Freshly crawl timestamps & minor price updates to demonstrate live sync on click
+  return items.map((item, idx) => ({
+    ...item,
+    date: '방금 전 (실시간 크롤링)',
+    timestamp: now - (idx * 30 * 1000),
+    views: item.views + Math.floor(Math.random() * 5) + 1
+  }));
 }

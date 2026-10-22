@@ -1,17 +1,20 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Header } from './components/Header';
 import { StatsDashboard } from './components/StatsDashboard';
 import { FilterToolbar } from './components/FilterToolbar';
 import { ProductList } from './components/ProductList';
-import { searchAllPlatforms, filterAndSortItems, calculateStats } from './services/searchService';
+import { crawlLiveSearchData, filterAndSortItems, calculateStats } from './services/searchService';
 import { exportToExcel } from './utils/excelExport';
-import { Search, Compass, Heart, User, Sparkles } from 'lucide-react';
+import { Search, Compass, Heart, User, Sparkles, RefreshCw, CheckCircle2 } from 'lucide-react';
 
 const POPULAR_TAGS = ['아이폰 15', '맥북 프로', '갤럭시 S24', '에어팟 프로', '닌텐도 스위치', 'PS5', '아이패드'];
 
 export function App() {
   const [searchQuery, setSearchQuery] = useState('아이폰 15');
   const [currentKeyword, setCurrentKeyword] = useState('아이폰 15');
+  const [items, setItems] = useState([]);
+  const [isCrawling, setIsCrawling] = useState(false);
+  const [lastCrawledAt, setLastCrawledAt] = useState(null);
 
   // Platform Filter: 'all', 'bungae', 'joonggo'
   const [platformFilter, setPlatformFilter] = useState('all');
@@ -24,22 +27,36 @@ export function App() {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'list'
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
-  // Raw Search Data
-  const rawDataset = useMemo(() => {
-    return searchAllPlatforms(currentKeyword);
-  }, [currentKeyword]);
+  // Perform crawl on demand
+  const performCrawl = useCallback(async (keyword) => {
+    setIsCrawling(true);
+    try {
+      const crawledData = await crawlLiveSearchData(keyword);
+      setItems(crawledData);
+      setLastCrawledAt(new Date().toLocaleTimeString('ko-KR'));
+    } catch (err) {
+      console.error('크롤링 실패:', err);
+    } finally {
+      setIsCrawling(false);
+    }
+  }, []);
+
+  // Initial load crawl
+  useEffect(() => {
+    performCrawl(currentKeyword);
+  }, [currentKeyword, performCrawl]);
 
   // Filtered and Sorted Data
   const filteredItems = useMemo(() => {
-    return filterAndSortItems(rawDataset, {
-      keyword: '', // Keyword already fetched dynamic dataset
+    return filterAndSortItems(items, {
+      keyword: '',
       platform: platformFilter,
       minPrice,
       maxPrice,
       safeTradeOnly,
       sortBy
     });
-  }, [rawDataset, platformFilter, minPrice, maxPrice, safeTradeOnly, sortBy]);
+  }, [items, platformFilter, minPrice, maxPrice, safeTradeOnly, sortBy]);
 
   // Real-time Statistics
   const stats = useMemo(() => {
@@ -50,7 +67,12 @@ export function App() {
   const handleSearch = (e) => {
     if (e) e.preventDefault();
     if (!searchQuery.trim()) return;
-    setCurrentKeyword(searchQuery.trim());
+    const trimmed = searchQuery.trim();
+    setCurrentKeyword(trimmed);
+  };
+
+  const handleTriggerCrawl = () => {
+    performCrawl(currentKeyword);
   };
 
   const handleTagClick = (tag) => {
@@ -82,10 +104,38 @@ export function App() {
         stats={stats}
         quickTags={POPULAR_TAGS}
         onTagClick={handleTagClick}
+        isCrawling={isCrawling}
+        onTriggerCrawl={handleTriggerCrawl}
       />
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+
+        {/* Live Crawl Notice Bar */}
+        <div className="bg-gradient-to-r from-red-500/10 via-emerald-500/10 to-indigo-500/10 rounded-xl p-3 mb-4 border border-gray-200/80 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-700">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span className="font-semibold text-gray-900">클릭 기반 실시간 크롤링 시스템</span>
+            <span className="text-gray-500">| 버튼을 누르면 번개장터 &amp; 중고나라 최신 매물이 수집됩니다.</span>
+          </div>
+
+          <div className="flex items-center gap-2 font-medium shrink-0">
+            {lastCrawledAt && (
+              <span className="flex items-center gap-1 text-emerald-700 bg-emerald-100/80 px-2.5 py-0.5 rounded-full">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                마지막 크롤링: {lastCrawledAt}
+              </span>
+            )}
+            <button
+              onClick={handleTriggerCrawl}
+              disabled={isCrawling}
+              className="text-red-600 hover:text-red-700 font-bold flex items-center gap-1 underline underline-offset-2 ml-2"
+            >
+              <RefreshCw className={`w-3 h-3 ${isCrawling ? 'animate-spin' : ''}`} />
+              지금 다시 크롤링
+            </button>
+          </div>
+        </div>
 
         {/* Realtime Market Price Dashboard */}
         <StatsDashboard stats={stats} currentKeyword={currentKeyword} />
@@ -109,8 +159,20 @@ export function App() {
           setShowMobileFilters={setShowMobileFilters}
         />
 
-        {/* Product Items List or Grid */}
-        <ProductList items={filteredItems} viewMode={viewMode} />
+        {/* Product Items List or Grid with Crawling Loading State */}
+        {isCrawling ? (
+          <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center my-8 shadow-xs">
+            <div className="w-12 h-12 border-4 border-red-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <h3 className="text-base font-bold text-gray-800">
+              번개장터 &amp; 중고나라 매물을 실시간 크롤링 중입니다...
+            </h3>
+            <p className="text-xs text-gray-500 mt-1">
+              최신 가격, 등록 시간, 안전거래 여부를 실시간으로 수집하고 있습니다.
+            </p>
+          </div>
+        ) : (
+          <ProductList items={filteredItems} viewMode={viewMode} />
+        )}
 
       </main>
 
@@ -121,7 +183,7 @@ export function App() {
             번개장터 &amp; 중고나라 가격 비교 스마트 알리미
           </p>
           <p>
-            본 서비스는 번개장터와 중고나라의 오픈 데이터를 한 곳에서 실시간 비교 및 시세 산출을 용이하게 지원합니다.
+            본 서비스는 매초 무분별한 요청 대신 사용자가 필요할 때 클릭하여 수집하는 On-Demand 크롤링 방식을 지원합니다.
           </p>
           <p className="mt-2 text-gray-400">© 2025 Market Price Aggregator. All rights reserved.</p>
         </div>
@@ -130,11 +192,12 @@ export function App() {
       {/* Mobile Sticky Bottom Navigation Bar (App Experience) */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-2.5 z-40 flex items-center justify-between shadow-lg">
         <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={handleTriggerCrawl}
+          disabled={isCrawling}
           className="flex flex-col items-center gap-1 text-red-500 font-bold text-[11px]"
         >
-          <Search className="w-5 h-5" />
-          <span>시세검색</span>
+          <RefreshCw className={`w-5 h-5 ${isCrawling ? 'animate-spin' : ''}`} />
+          <span>크롤링</span>
         </button>
 
         <button
