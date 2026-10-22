@@ -1,7 +1,7 @@
 @echo off
 title Secondhand Price Search App
 echo =========================================================
-echo  Starting Secondhand Market Price App (Bungae & Joonggo)...
+echo  Starting Secondhand Market Price App (Bungae and Joonggo)...
 echo =========================================================
 echo.
 
@@ -12,20 +12,12 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-if not exist "node_modules\" (
-    echo [INFO] Installing required packages. Please wait...
-    call npm install
-)
-
-if not exist "node_modules\" (
-    echo [ERROR] npm install failed. Please check your network connection and retry.
-    pause
-    exit /b 1
-)
+echo [INFO] Installing required dependencies...
+call npm install
 
 echo.
-echo [INFO] Starting web server at http://localhost:3000 ...
+echo [INFO] Starting development web server at http://localhost:3000 ...
 echo.
 
-call npx vite --open
+call npm run dev -- --open
 pause
