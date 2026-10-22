@@ -1,414 +1,88 @@
-// Sample item database for Bungaejangter and Joonggonara with realistic product detail page URLs
-export const INITIAL_ITEMS = [
-  {
-    id: 'b-285194101',
-    platform: 'bungae',
-    title: '아이폰 15 프로 256GB 내추럴티타늄 풀박스 무흠집',
-    price: 1150000,
-    imageUrl: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80',
-    location: '서울특별시 강남구 역삼동',
-    date: '10분 전',
-    timestamp: Date.now() - 10 * 60 * 1000,
-    safeTrade: true,
-    status: 'AVAILABLE',
-    seller: '애플매니아99',
-    link: 'https://m.bunjang.co.kr/products/285194101',
-    likes: 24,
-    views: 312,
-    condition: 'S급 (최상)'
-  },
-  {
-    id: 'j-184920101',
-    platform: 'joonggo',
-    title: '아이폰 15 프로 256G 네추럴 티타늄 자급제 S급 판매',
-    price: 1120000,
-    imageUrl: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80',
-    location: '경기도 성남시 분당구',
-    date: '18분 전',
-    timestamp: Date.now() - 18 * 60 * 1000,
-    safeTrade: true,
-    status: 'AVAILABLE',
-    seller: '분당직거래',
-    link: 'https://m.joongna.com/product-detail/184920101',
-    likes: 15,
-    views: 189,
-    condition: 'A급'
-  },
-  {
-    id: 'b-284910202',
-    platform: 'bungae',
-    title: '아이폰 15 프로 128GB 블루티타늄 배터리 98%',
-    price: 1020000,
-    imageUrl: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&auto=format&fit=crop&q=80',
-    location: '서울특별시 마포구 서교동',
-    date: '35분 전',
-    timestamp: Date.now() - 35 * 60 * 1000,
-    safeTrade: true,
-    status: 'AVAILABLE',
-    seller: '홍대스토어',
-    link: 'https://m.bunjang.co.kr/products/284910202',
-    likes: 18,
-    views: 245,
-    condition: 'A급'
-  },
-  {
-    id: 'j-179402202',
-    platform: 'joonggo',
-    title: '아이폰 14 프로 128GB 딥퍼플 미품 급매',
-    price: 830000,
-    imageUrl: 'https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?w=600&auto=format&fit=crop&q=80',
-    location: '인천광역시 연수구 송도동',
-    date: '1시간 전',
-    timestamp: Date.now() - 60 * 60 * 1000,
-    safeTrade: false,
-    status: 'AVAILABLE',
-    seller: '송도거래자',
-    link: 'https://m.joongna.com/product-detail/179402202',
-    likes: 9,
-    views: 140,
-    condition: 'A급'
-  },
-  {
-    id: 'b-281039403',
-    platform: 'bungae',
-    title: '맥북 프로 14인치 M3 Pro (18GB/512GB) 스페이스블랙',
-    price: 2250000,
-    imageUrl: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80',
-    location: '서울특별시 송파구 잠실동',
-    date: '2시간 전',
-    timestamp: Date.now() - 120 * 60 * 1000,
-    safeTrade: true,
-    status: 'AVAILABLE',
-    seller: '맥북전문',
-    link: 'https://m.bunjang.co.kr/products/281039403',
-    likes: 31,
-    views: 450,
-    condition: 'S급 (최상)'
-  },
-  {
-    id: 'j-162849203',
-    platform: 'joonggo',
-    title: '맥북 에어 M2 13인치 8GB/256GB 스타라이트 풀박스',
-    price: 1050000,
-    imageUrl: 'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop&q=80',
-    location: '대구광역시 중구 동성로',
-    date: '3시간 전',
-    timestamp: Date.now() - 180 * 60 * 1000,
-    safeTrade: true,
-    status: 'AVAILABLE',
-    seller: '대구애플',
-    link: 'https://m.joongna.com/product-detail/162849203',
-    likes: 12,
-    views: 210,
-    condition: 'A급'
-  },
-  {
-    id: 'b-289104804',
-    platform: 'bungae',
-    title: '갤럭시 S24 울트라 512GB 티타늄 블랙 미개봉',
-    price: 1280000,
-    imageUrl: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=600&auto=format&fit=crop&q=80',
-    location: '부산광역시 해운대구',
-    date: '4시간 전',
-    timestamp: Date.now() - 240 * 60 * 1000,
-    safeTrade: true,
-    status: 'AVAILABLE',
-    seller: '부산삼성이',
-    link: 'https://m.bunjang.co.kr/products/289104804',
-    likes: 42,
-    views: 580,
-    condition: '미개봉 (새상품)'
-  },
-  {
-    id: 'j-159204804',
-    platform: 'joonggo',
-    title: '갤럭시 S24 256GB 옐로우 자급제 S급',
-    price: 850000,
-    imageUrl: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80',
-    location: '대전광역시 유성구',
-    date: '5시간 전',
-    timestamp: Date.now() - 300 * 60 * 1000,
-    safeTrade: false,
-    status: 'AVAILABLE',
-    seller: '대전폰몰',
-    link: 'https://m.joongna.com/product-detail/159204804',
-    likes: 8,
-    views: 112,
-    condition: 'A급'
-  },
-  {
-    id: 'b-283920105',
-    platform: 'bungae',
-    title: '에어팟 프로 2세대 USB-C 미개봉 풀박스',
-    price: 255000,
-    imageUrl: 'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=600&auto=format&fit=crop&q=80',
-    location: '서울특별시 광진구 자양동',
-    date: '6시간 전',
-    timestamp: Date.now() - 360 * 60 * 1000,
-    safeTrade: true,
-    status: 'AVAILABLE',
-    seller: '사운드킹',
-    link: 'https://m.bunjang.co.kr/products/283920105',
-    likes: 67,
-    views: 890,
-    condition: '미개봉 (새상품)'
-  },
-  {
-    id: 'j-149205105',
-    platform: 'joonggo',
-    title: '에어팟 프로 2세대 C타입 풀박스 상태 양호',
-    price: 230000,
-    imageUrl: 'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=600&auto=format&fit=crop&q=80',
-    location: '경기도 수원시 영통구',
-    date: '7시간 전',
-    timestamp: Date.now() - 420 * 60 * 1000,
-    safeTrade: true,
-    status: 'AVAILABLE',
-    seller: '수원직거래',
-    link: 'https://m.joongna.com/product-detail/149205105',
-    likes: 21,
-    views: 310,
-    condition: 'A급'
-  },
-  {
-    id: 'b-281039106',
-    platform: 'bungae',
-    title: '닌텐도 스위치 OLED 스페셜 에디션 풀박스 + 타이틀 2종',
-    price: 340000,
-    imageUrl: 'https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=600&auto=format&fit=crop&q=80',
-    location: '서울특별시 노원구 상계동',
-    date: '8시간 전',
-    timestamp: Date.now() - 480 * 60 * 1000,
-    safeTrade: true,
-    status: 'AVAILABLE',
-    seller: '게이머천국',
-    link: 'https://m.bunjang.co.kr/products/281039106',
-    likes: 38,
-    views: 420,
-    condition: 'A급'
-  },
-  {
-    id: 'j-139206106',
-    platform: 'joonggo',
-    title: '플레이스테이션 5 PS5 디스크 에디션 (1200번대) 듀얼센스 2개',
-    price: 480000,
-    imageUrl: 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=600&auto=format&fit=crop&q=80',
-    location: '울산광역시 남구',
-    date: '9시간 전',
-    timestamp: Date.now() - 540 * 60 * 1000,
-    safeTrade: false,
-    status: 'AVAILABLE',
-    seller: '울산콘솔',
-    link: 'https://m.joongna.com/product-detail/139206106',
-    likes: 19,
-    views: 290,
-    condition: 'A급'
-  },
-  {
-    id: 'b-287401107',
-    platform: 'bungae',
-    title: '아이패드 프로 11인치 4세대 M2 Wi-Fi 128GB 스페이스그레이',
-    price: 890000,
-    imageUrl: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80',
-    location: '서울특별시 서초구 서초동',
-    date: '10시간 전',
-    timestamp: Date.now() - 600 * 60 * 1000,
-    safeTrade: true,
-    status: 'AVAILABLE',
-    seller: '패드러버',
-    link: 'https://m.bunjang.co.kr/products/287401107',
-    likes: 29,
-    views: 380,
-    condition: 'S급 (최상)'
-  },
-  {
-    id: 'j-129407107',
-    platform: 'joonggo',
-    title: '아이패드 에어 5세대 Wi-Fi 64GB 블루 애플펜슬 2세대 포함',
-    price: 650000,
-    imageUrl: 'https://images.unsplash.com/photo-1561154464-82e9adf32764?w=600&auto=format&fit=crop&q=80',
-    location: '경기도 고양시 일산동구',
-    date: '12시간 전',
-    timestamp: Date.now() - 720 * 60 * 1000,
-    safeTrade: true,
-    status: 'AVAILABLE',
-    seller: '일산패드',
-    link: 'https://m.joongna.com/product-detail/129407107',
-    likes: 33,
-    views: 410,
-    condition: 'A급'
-  },
-  {
-    id: 'b-281038108',
-    platform: 'bungae',
-    title: '소니 WH-1000XM5 노이즈캔슬링 헤드폰 블랙',
-    price: 310000,
-    imageUrl: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=600&auto=format&fit=crop&q=80',
-    location: '서울특별시 성동구 성수동',
-    date: '14시간 전',
-    timestamp: Date.now() - 840 * 60 * 1000,
-    safeTrade: true,
-    status: 'AVAILABLE',
-    seller: '음악감상가',
-    link: 'https://m.bunjang.co.kr/products/281038108',
-    likes: 22,
-    views: 305,
-    condition: 'A급'
-  },
-  {
-    id: 'j-119408108',
-    platform: 'joonggo',
-    title: 'RTX 4070 SUPER 12GB 그래픽카드 풀박스 보증 남아있음',
-    price: 780000,
-    imageUrl: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?w=600&auto=format&fit=crop&q=80',
-    location: '경상북도 포항시 남구',
-    date: '1일 전',
-    timestamp: Date.now() - 24 * 60 * 60 * 1000,
-    safeTrade: true,
-    status: 'AVAILABLE',
-    seller: '컴덕후',
-    link: 'https://m.joongna.com/product-detail/119408108',
-    likes: 14,
-    views: 260,
-    condition: 'S급 (최상)'
-  }
-];
+// Sample item database for Bungaejangter and Joonggonara generating 1,000+ items per search query
+export const INITIAL_ITEMS = generateDynamicItems('아이폰 15');
 
-// Helper to generate dynamic search items with direct product detail URLs
 export function generateDynamicItems(keyword) {
-  if (!keyword || keyword.trim() === '') return INITIAL_ITEMS;
+  const trimmed = (keyword || '아이폰 15').trim();
+  const now = Date.now();
 
-  const trimmed = keyword.trim().toLowerCase();
+  let hash = 0;
+  for (let i = 0; i < trimmed.length; i++) {
+    hash = (hash << 5) - hash + trimmed.charCodeAt(i);
+    hash |= 0;
+  }
+  const baseSeed = Math.abs(hash) + 100000;
+  const basePrice = Math.floor((Math.abs(hash) % 70 + 15)) * 10000;
 
-  // Direct filter match first
-  const matched = INITIAL_ITEMS.filter(item =>
-    item.title.toLowerCase().includes(trimmed) ||
-    item.seller.toLowerCase().includes(trimmed) ||
-    item.location.toLowerCase().includes(trimmed)
-  );
+  const sampleImages = [
+    'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?w=600&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=600&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=600&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=600&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=600&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1561154464-82e9adf32764?w=600&auto=format&fit=crop&q=80'
+  ];
 
-  if (matched.length >= 4) {
-    return matched;
+  const locations = [
+    '서울특별시 강남구 역삼동', '서울특별시 마포구 서교동', '서울특별시 송파구 잠실동',
+    '경기도 성남시 분당구', '경기도 수원시 영통구', '경기도 고양시 일산동구',
+    '인천광역시 연수구 송도동', '부산광역시 해운대구', '대구광역시 수성구',
+    '대전광역시 유성구', '광주광역시 서구 치평동', '울산광역시 남구 삼산동'
+  ];
+
+  const conditions = ['S급 (최상)', 'A급 (상태 양호)', 'B급 (사용감 있음)', '미개봉 (새상품)'];
+  const titlesPrefix = ['[급매]', '[자급제]', '[풀박스]', '[배터리100%]', '[정품보증]', '[직거래선호]', '[S급미품]', '[무흠집]'];
+
+  const items = [];
+  const TOTAL_COUNT = 1200; // Generate 1,200 items per search query
+
+  for (let i = 1; i <= TOTAL_COUNT; i++) {
+    const isBungae = i % 2 === 1;
+    const itemPlatform = isBungae ? 'bungae' : 'joonggo';
+
+    const priceVariance = ((i * 17) % 70 - 35) / 100;
+    const price = Math.round((basePrice * (1 + priceVariance)) / 10000) * 10000 || 50000;
+
+    const imgIndex = (i + baseSeed) % sampleImages.length;
+    const locIndex = (i * 3 + baseSeed) % locations.length;
+    const condIndex = (i * 7 + baseSeed) % conditions.length;
+    const prefixIndex = (i * 11) % titlesPrefix.length;
+
+    const timeAgoMinutes = i * 2;
+    let dateStr = '방금 전';
+    if (timeAgoMinutes >= 60 * 24) {
+      dateStr = `${Math.floor(timeAgoMinutes / (60 * 24))}일 전`;
+    } else if (timeAgoMinutes >= 60) {
+      dateStr = `${Math.floor(timeAgoMinutes / 60)}시간 전`;
+    } else {
+      dateStr = `${timeAgoMinutes}분 전`;
+    }
+
+    const link = isBungae
+      ? `https://m.bunjang.co.kr/search/products?q=${encodeURIComponent(trimmed)}`
+      : `https://m.joongna.com/search/${encodeURIComponent(trimmed)}`;
+
+    items.push({
+      id: `${itemPlatform}-${baseSeed}-${i}`,
+      platform: itemPlatform,
+      title: `${titlesPrefix[prefixIndex]} ${trimmed} #${i}`,
+      price,
+      imageUrl: sampleImages[imgIndex],
+      location: locations[locIndex],
+      date: dateStr,
+      timestamp: now - timeAgoMinutes * 60 * 1000,
+      safeTrade: i % 3 !== 0,
+      status: 'AVAILABLE',
+      seller: `${itemPlatform === 'bungae' ? '번개' : '중고'}_판매자${(i * 13) % 999 + 1}`,
+      link,
+      likes: (i * 7) % 50,
+      views: (i * 23) % 800 + 10,
+      condition: conditions[condIndex]
+    });
   }
 
-  // Generate synthetic matching items pointing directly to individual product detail pages
-  const basePrice = Math.floor(Math.random() * 80 + 20) * 10000;
-  const sampleImages = [
-    'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&auto=format&fit=crop&q=80'
-  ];
-
-  const seed = Math.floor(Math.random() * 8000000) + 280000000;
-
-  const generated = [
-    ...matched,
-    {
-      id: `dyn-b-${seed + 101}`,
-      platform: 'bungae',
-      title: `${keyword} (S급 급매 / 풀박스)`,
-      price: basePrice,
-      imageUrl: sampleImages[0],
-      location: '서울특별시 강남구',
-      date: '5분 전',
-      timestamp: Date.now() - 5 * 60 * 1000,
-      safeTrade: true,
-      status: 'AVAILABLE',
-      seller: '번개마켓',
-      link: `https://m.bunjang.co.kr/products/${seed + 101}`,
-      likes: 12,
-      views: 154,
-      condition: 'S급 (최상)'
-    },
-    {
-      id: `dyn-j-${seed + 201}`,
-      platform: 'joonggo',
-      title: `${keyword} 미개봉 정품 판매합니다`,
-      price: Math.floor(basePrice * 1.08),
-      imageUrl: sampleImages[1],
-      location: '경기도 성남시',
-      date: '15분 전',
-      timestamp: Date.now() - 15 * 60 * 1000,
-      safeTrade: true,
-      status: 'AVAILABLE',
-      seller: '중고나라공식',
-      link: `https://m.joongna.com/product-detail/${seed + 201}`,
-      likes: 8,
-      views: 98,
-      condition: '미개봉 (새상품)'
-    },
-    {
-      id: `dyn-b-${seed + 102}`,
-      platform: 'bungae',
-      title: `${keyword} 사용감 적음 상태 최상`,
-      price: Math.floor(basePrice * 0.88),
-      imageUrl: sampleImages[2],
-      location: '서울특별시 마포구',
-      date: '40분 전',
-      timestamp: Date.now() - 40 * 60 * 1000,
-      safeTrade: true,
-      status: 'AVAILABLE',
-      seller: '상점77123',
-      link: `https://m.bunjang.co.kr/products/${seed + 102}`,
-      likes: 5,
-      views: 210,
-      condition: 'A급'
-    },
-    {
-      id: `dyn-j-${seed + 202}`,
-      platform: 'joonggo',
-      title: `${keyword} 거래 / 택배 가능`,
-      price: Math.floor(basePrice * 0.95),
-      imageUrl: sampleImages[3],
-      location: '부산광역시 해운대구',
-      date: '1시간 전',
-      timestamp: Date.now() - 60 * 60 * 1000,
-      safeTrade: false,
-      status: 'AVAILABLE',
-      seller: '해운대직거래',
-      link: `https://m.joongna.com/product-detail/${seed + 202}`,
-      likes: 19,
-      views: 340,
-      condition: 'A급'
-    },
-    {
-      id: `dyn-b-${seed + 103}`,
-      platform: 'bungae',
-      title: `${keyword} 풀구성 영수증 포함`,
-      price: Math.floor(basePrice * 1.02),
-      imageUrl: sampleImages[4],
-      location: '인천광역시 부평구',
-      date: '2시간 전',
-      timestamp: Date.now() - 120 * 60 * 1000,
-      safeTrade: true,
-      status: 'AVAILABLE',
-      seller: '인천마켓',
-      link: `https://m.bunjang.co.kr/products/${seed + 103}`,
-      likes: 11,
-      views: 180,
-      condition: 'S급 (최상)'
-    },
-    {
-      id: `dyn-j-${seed + 203}`,
-      platform: 'joonggo',
-      title: `[급매] ${keyword} 상태 양호 저렴하게 넘겨요`,
-      price: Math.floor(basePrice * 0.8),
-      imageUrl: sampleImages[5],
-      location: '대구광역시 수성구',
-      date: '3시간 전',
-      timestamp: Date.now() - 180 * 60 * 1000,
-      safeTrade: true,
-      status: 'AVAILABLE',
-      seller: '수성맘',
-      link: `https://m.joongna.com/product-detail/${seed + 203}`,
-      likes: 27,
-      views: 520,
-      condition: 'B급'
-    }
-  ];
-
-  return generated;
+  return items;
 }

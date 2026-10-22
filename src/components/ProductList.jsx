@@ -1,7 +1,16 @@
-import React from 'react';
-import { ExternalLink, ShieldCheck, Heart, Eye, MapPin, Clock, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ShieldCheck, Heart, Eye, MapPin, Clock, AlertCircle, ChevronDown, CheckCircle2 } from 'lucide-react';
+
+const ITEMS_PER_PAGE = 24;
 
 export function ProductList({ items, viewMode, onItemClick }) {
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+
+  // Reset pagination when items or filters change
+  useEffect(() => {
+    setVisibleCount(ITEMS_PER_PAGE);
+  }, [items]);
+
   if (!items || items.length === 0) {
     return (
       <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center my-8 shadow-xs">
@@ -18,8 +27,24 @@ export function ProductList({ items, viewMode, onItemClick }) {
     );
   }
 
+  const visibleItems = items.slice(0, visibleCount);
+  const hasMore = visibleCount < items.length;
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => prev + ITEMS_PER_PAGE * 2);
+  };
+
   return (
     <div className="mb-8">
+      {/* Item Counter Header */}
+      <div className="flex items-center justify-between mb-4 px-1 text-xs text-gray-500 font-medium">
+        <div className="flex items-center gap-1.5 text-gray-700 font-bold">
+          <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+          <span>총 <strong className="text-red-600 font-extrabold">{items.length.toLocaleString()}개</strong>의 중고 매물 수집 완료</span>
+        </div>
+        <span>(현재 {Math.min(visibleCount, items.length).toLocaleString()}개 표시 중)</span>
+      </div>
+
       {viewMode === 'list' ? (
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
@@ -36,7 +61,7 @@ export function ProductList({ items, viewMode, onItemClick }) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {items.map((item) => (
+                {visibleItems.map((item) => (
                   <tr
                     key={item.id}
                     onClick={() => onItemClick && onItemClick(item)}
@@ -134,7 +159,7 @@ export function ProductList({ items, viewMode, onItemClick }) {
       ) : (
         /* Grid Mode */
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-          {items.map((item) => (
+          {visibleItems.map((item) => (
             <div
               key={item.id}
               onClick={() => onItemClick && onItemClick(item)}
@@ -233,6 +258,19 @@ export function ProductList({ items, viewMode, onItemClick }) {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Load More Button */}
+      {hasMore && (
+        <div className="mt-8 text-center">
+          <button
+            onClick={handleLoadMore}
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-gray-900 hover:bg-black text-white font-bold text-sm rounded-xl shadow-md transition-all duration-200 transform hover:-translate-y-0.5"
+          >
+            <span>중고 매물 더보기 ({visibleCount.toLocaleString()} / {items.length.toLocaleString()}개)</span>
+            <ChevronDown className="w-4 h-4" />
+          </button>
         </div>
       )}
     </div>
