@@ -9,7 +9,7 @@ export function StatsDashboard({ stats, currentKeyword }) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-gray-100">
         <div>
           <h2 className="text-base font-bold text-gray-900 flex items-center gap-2">
-            <span className="p-1.5 bg-red-100 text-red-600 rounded-lg">
+            <span className="p-1.5 bg-orange-100 text-orange-600 rounded-lg">
               <TrendingUp className="w-4 h-4" />
             </span>
             <span>"{currentKeyword || '전체'}" 실시간 시세 분석</span>
@@ -26,14 +26,14 @@ export function StatsDashboard({ stats, currentKeyword }) {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         {/* Average Price Card */}
-        <div className="p-4 rounded-xl bg-gradient-to-br from-red-50 to-orange-50 border border-red-100/80">
-          <div className="text-xs font-semibold text-red-700 mb-1 flex items-center gap-1">
+        <div className="p-4 rounded-xl bg-gradient-to-br from-orange-50 to-red-50 border border-orange-100/80">
+          <div className="text-xs font-semibold text-orange-700 mb-1 flex items-center gap-1">
             <span>평균 시세</span>
           </div>
-          <div className="text-lg md:text-xl font-extrabold text-red-900">
-            {stats.avgPrice.toLocaleString()}<span className="text-xs font-normal text-red-700 ml-0.5">원</span>
+          <div className="text-lg md:text-xl font-extrabold text-orange-900">
+            {stats.avgPrice.toLocaleString()}<span className="text-xs font-normal text-orange-700 ml-0.5">원</span>
           </div>
-          <div className="text-[11px] text-red-600/80 mt-1">
+          <div className="text-[11px] text-orange-600/80 mt-1">
             중고 거래 권장가
           </div>
         </div>
@@ -75,9 +75,11 @@ export function StatsDashboard({ stats, currentKeyword }) {
           <div className="text-lg md:text-xl font-extrabold text-gray-900">
             {stats.count}<span className="text-xs font-normal text-gray-600 ml-0.5">개</span>
           </div>
-          <div className="text-[11px] text-gray-500 mt-1 flex items-center gap-2">
+          <div className="text-[11px] text-gray-500 mt-1 flex items-center gap-1 flex-wrap">
+            <span className="text-orange-600 font-semibold">당근 {stats.daangnCount}</span>
+            <span>·</span>
             <span className="text-red-600 font-semibold">번개 {stats.bungaeCount}</span>
-            <span>|</span>
+            <span>·</span>
             <span className="text-emerald-700 font-semibold">중고 {stats.joonggoCount}</span>
           </div>
         </div>

@@ -6,7 +6,6 @@ const ITEMS_PER_PAGE = 24;
 export function ProductList({ items, viewMode, onItemClick }) {
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
 
-  // Reset pagination when items or filters change
   useEffect(() => {
     setVisibleCount(ITEMS_PER_PAGE);
   }, [items]);
@@ -34,13 +33,35 @@ export function ProductList({ items, viewMode, onItemClick }) {
     setVisibleCount(prev => prev + ITEMS_PER_PAGE * 2);
   };
 
+  const renderPlatformBadge = (platform) => {
+    if (platform === 'daangn') {
+      return (
+        <span className="inline-flex items-center gap-1 bg-orange-100 text-orange-700 font-bold text-xs px-2.5 py-1 rounded-md">
+          <span>🥕</span> 당근마켓
+        </span>
+      );
+    } else if (platform === 'bungae') {
+      return (
+        <span className="inline-flex items-center gap-1 bg-red-100 text-red-700 font-bold text-xs px-2.5 py-1 rounded-md">
+          <span>⚡</span> 번개장터
+        </span>
+      );
+    } else {
+      return (
+        <span className="inline-flex items-center gap-1 bg-emerald-100 text-emerald-800 font-bold text-xs px-2.5 py-1 rounded-md">
+          <span>N</span> 중고나라
+        </span>
+      );
+    }
+  };
+
   return (
     <div className="mb-8">
       {/* Item Counter Header */}
       <div className="flex items-center justify-between mb-4 px-1 text-xs text-gray-500 font-medium">
         <div className="flex items-center gap-1.5 text-gray-700 font-bold">
           <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-          <span>총 <strong className="text-red-600 font-extrabold">{items.length.toLocaleString()}개</strong>의 중고 매물 수집 완료</span>
+          <span>총 <strong className="text-orange-600 font-extrabold">{items.length.toLocaleString()}개</strong>의 중고 매물 수집 완료</span>
         </div>
         <span>(현재 {Math.min(visibleCount, items.length).toLocaleString()}개 표시 중)</span>
       </div>
@@ -65,19 +86,11 @@ export function ProductList({ items, viewMode, onItemClick }) {
                   <tr
                     key={item.id}
                     onClick={() => onItemClick && onItemClick(item)}
-                    className="hover:bg-red-50/50 cursor-pointer transition-colors group"
+                    className="hover:bg-orange-50/50 cursor-pointer transition-colors group"
                   >
                     {/* Platform */}
                     <td className="py-3.5 px-4 text-center align-middle whitespace-nowrap">
-                      {item.platform === 'bungae' ? (
-                        <span className="inline-flex items-center gap-1 bg-red-100 text-red-700 font-bold text-xs px-2.5 py-1 rounded-md">
-                          <span>⚡</span> 번개장터
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 bg-emerald-100 text-emerald-800 font-bold text-xs px-2.5 py-1 rounded-md">
-                          <span>N</span> 중고나라
-                        </span>
-                      )}
+                      {renderPlatformBadge(item.platform)}
                     </td>
 
                     {/* Title & Image thumbnail */}
@@ -90,7 +103,7 @@ export function ProductList({ items, viewMode, onItemClick }) {
                           loading="lazy"
                         />
                         <div className="min-w-0">
-                          <div className="font-semibold text-gray-900 line-clamp-1 group-hover:text-red-600 transition-colors">
+                          <div className="font-semibold text-gray-900 line-clamp-1 group-hover:text-orange-600 transition-colors">
                             {item.title}
                           </div>
                           <div className="flex items-center gap-2 mt-1 text-xs text-gray-500">
@@ -100,10 +113,10 @@ export function ProductList({ items, viewMode, onItemClick }) {
                               </span>
                             )}
                             <span className="flex items-center gap-1">
-                              <Heart className="w-3 h-3 text-red-400" /> {item.likes}
+                              <Heart className="w-3 h-3 text-red-400" /> {item.likes || 0}
                             </span>
                             <span className="flex items-center gap-1">
-                              <Eye className="w-3 h-3 text-gray-400" /> {item.views}
+                              <Eye className="w-3 h-3 text-gray-400" /> {item.views || 0}
                             </span>
                           </div>
                         </div>
@@ -145,7 +158,7 @@ export function ProductList({ items, viewMode, onItemClick }) {
                           e.stopPropagation();
                           onItemClick && onItemClick(item);
                         }}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 bg-red-500 text-white font-bold text-xs rounded-lg shadow-xs hover:bg-red-600 transition-colors"
+                        className="inline-flex items-center gap-1 px-3 py-1.5 bg-orange-500 text-white font-bold text-xs rounded-lg shadow-xs hover:bg-orange-600 transition-colors"
                       >
                         <span>매물상세</span>
                       </button>
@@ -163,7 +176,7 @@ export function ProductList({ items, viewMode, onItemClick }) {
             <div
               key={item.id}
               onClick={() => onItemClick && onItemClick(item)}
-              className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md hover:border-red-300 transition-all duration-200 flex flex-col group cursor-pointer"
+              className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md hover:border-orange-300 transition-all duration-200 flex flex-col group cursor-pointer"
             >
               {/* Card Top Image & Badges */}
               <div className="relative aspect-4/3 bg-gray-100 overflow-hidden">
@@ -176,7 +189,11 @@ export function ProductList({ items, viewMode, onItemClick }) {
 
                 {/* Platform Badge Overlay */}
                 <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                  {item.platform === 'bungae' ? (
+                  {item.platform === 'daangn' ? (
+                    <span className="bg-orange-500/90 backdrop-blur-md text-white font-black text-xs px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1">
+                      <span>🥕</span> 당근마켓
+                    </span>
+                  ) : item.platform === 'bungae' ? (
                     <span className="bg-red-500/90 backdrop-blur-md text-white font-black text-xs px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1">
                       <span>⚡</span> 번개장터
                     </span>
@@ -212,7 +229,7 @@ export function ProductList({ items, viewMode, onItemClick }) {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 mb-3 leading-snug group-hover:text-red-600 transition-colors">
+                  <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 mb-3 leading-snug group-hover:text-orange-600 transition-colors">
                     {item.title}
                   </h3>
                 </div>
@@ -234,10 +251,10 @@ export function ProductList({ items, viewMode, onItemClick }) {
                   <div className="flex items-center justify-between pt-1">
                     <div className="flex items-center gap-3 text-gray-400 text-[11px]">
                       <span className="flex items-center gap-1">
-                        <Heart className="w-3 h-3 text-red-400" /> {item.likes}
+                        <Heart className="w-3 h-3 text-red-400" /> {item.likes || 0}
                       </span>
                       <span className="flex items-center gap-1">
-                        <Eye className="w-3 h-3 text-gray-400" /> {item.views}
+                        <Eye className="w-3 h-3 text-gray-400" /> {item.views || 0}
                       </span>
                       <span className="text-gray-400">· {item.seller}</span>
                     </div>
@@ -248,7 +265,7 @@ export function ProductList({ items, viewMode, onItemClick }) {
                         e.stopPropagation();
                         onItemClick && onItemClick(item);
                       }}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 bg-red-500 text-white font-semibold text-xs rounded-lg shadow-xs hover:bg-red-600 transition-all"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 bg-orange-500 text-white font-semibold text-xs rounded-lg shadow-xs hover:bg-orange-600 transition-all"
                     >
                       <span>상세보기</span>
                     </button>

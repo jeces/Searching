@@ -1,9 +1,7 @@
-import { INITIAL_ITEMS, generateDynamicItems } from '../data/mockItems.js';
-
 export function filterAndSortItems(items, filters) {
   const {
     keyword = '',
-    platform = 'all', // 'all', 'bungae', 'joonggo'
+    platform = 'all', // 'all', 'daangn', 'bungae', 'joonggo'
     minPrice = '',
     maxPrice = '',
     safeTradeOnly = false,
@@ -22,8 +20,8 @@ export function filterAndSortItems(items, filters) {
     const k = keyword.trim().toLowerCase();
     result = result.filter(item =>
       item.title.toLowerCase().includes(k) ||
-      item.seller.toLowerCase().includes(k) ||
-      item.location.toLowerCase().includes(k)
+      (item.seller && item.seller.toLowerCase().includes(k)) ||
+      (item.location && item.location.toLowerCase().includes(k))
     );
   }
 
@@ -49,10 +47,10 @@ export function filterAndSortItems(items, filters) {
     } else if (sortBy === 'price_desc') {
       return b.price - a.price;
     } else if (sortBy === 'likes') {
-      return b.likes - a.likes;
+      return (b.likes || 0) - (a.likes || 0);
     } else {
       // newest
-      return b.timestamp - a.timestamp;
+      return (b.timestamp || 0) - (a.timestamp || 0);
     }
   });
 
@@ -66,17 +64,19 @@ export function calculateStats(items) {
       avgPrice: 0,
       minPrice: 0,
       maxPrice: 0,
+      daangnCount: 0,
       bungaeCount: 0,
       joonggoCount: 0
     };
   }
 
-  const prices = items.map(item => item.price);
+  const prices = items.map(item => item.price).filter(p => typeof p === 'number' && !isNaN(p));
   const total = prices.reduce((acc, curr) => acc + curr, 0);
-  const avgPrice = Math.round(total / items.length);
-  const minPrice = Math.min(...prices);
-  const maxPrice = Math.max(...prices);
+  const avgPrice = prices.length > 0 ? Math.round(total / prices.length) : 0;
+  const minPrice = prices.length > 0 ? Math.min(...prices) : 0;
+  const maxPrice = prices.length > 0 ? Math.max(...prices) : 0;
 
+  const daangnCount = items.filter(item => item.platform === 'daangn').length;
   const bungaeCount = items.filter(item => item.platform === 'bungae').length;
   const joonggoCount = items.filter(item => item.platform === 'joonggo').length;
 
@@ -85,6 +85,7 @@ export function calculateStats(items) {
     avgPrice,
     minPrice,
     maxPrice,
+    daangnCount,
     bungaeCount,
     joonggoCount
   };
@@ -101,18 +102,8 @@ export async function crawlLiveSearchData(keyword) {
       }
     }
   } catch (err) {
-    console.warn('[Crawling API] Backend server offline or starting up, using direct generator fallback:', err);
+    console.warn('[Crawling API] Backend server fetch error:', err);
   }
 
-  // Direct fallback generator if server is starting
-  await new Promise((resolve) => setTimeout(resolve, 500));
-  const items = generateDynamicItems(keyword);
-  const now = Date.now();
-
-  return items.map((item, idx) => ({
-    ...item,
-    date: '방금 전 수집됨',
-    timestamp: now - (idx * 30 * 1000),
-    views: item.views + Math.floor(Math.random() * 5) + 1
-  }));
+  return [];
 }

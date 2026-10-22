@@ -20,7 +20,7 @@ export function App() {
   // Selected Item for Product Detail Modal
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // Platform Filter: 'all', 'bungae', 'joonggo'
+  // Platform Filter: 'all', 'daangn', 'bungae', 'joonggo'
   const [platformFilter, setPlatformFilter] = useState('all');
 
   // Filter States
@@ -124,11 +124,11 @@ export function App() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6">
 
         {/* Live Crawl Notice Bar */}
-        <div className="bg-gradient-to-r from-red-500/10 via-emerald-500/10 to-indigo-500/10 rounded-xl p-3 mb-4 border border-gray-200/80 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-700">
+        <div className="bg-gradient-to-r from-orange-500/10 via-red-500/10 to-emerald-500/10 rounded-xl p-3 mb-4 border border-gray-200/80 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-700">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="font-semibold text-gray-900">클릭 기반 실시간 크롤링 시스템</span>
-            <span className="text-gray-500">| 버튼을 누르면 번개장터 &amp; 중고나라 최신 매물이 수집됩니다.</span>
+            <span className="font-semibold text-gray-900">실시간 크롤링 수집 시스템</span>
+            <span className="text-gray-500">| 당근마켓(JSON-LD), 중고나라(HTTP), 번개장터(Playwright) 최신 매물 수집</span>
           </div>
 
           <div className="flex items-center gap-2 font-medium shrink-0">
@@ -141,7 +141,7 @@ export function App() {
             <button
               onClick={handleTriggerCrawl}
               disabled={isCrawling}
-              className="text-red-600 hover:text-red-700 font-bold flex items-center gap-1 underline underline-offset-2 ml-2"
+              className="text-orange-600 hover:text-orange-700 font-bold flex items-center gap-1 underline underline-offset-2 ml-2"
             >
               <RefreshCw className={`w-3 h-3 ${isCrawling ? 'animate-spin' : ''}`} />
               지금 다시 크롤링
@@ -174,9 +174,9 @@ export function App() {
         {/* Product Items List or Grid with Crawling Loading State */}
         {isCrawling ? (
           <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center my-8 shadow-xs">
-            <div className="w-12 h-12 border-4 border-red-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <h3 className="text-base font-bold text-gray-800">
-              번개장터 &amp; 중고나라 매물을 실시간 크롤링 중입니다...
+              당근마켓, 번개장터, 중고나라 매물을 실시간 크롤링 중입니다...
             </h3>
             <p className="text-xs text-gray-500 mt-1">
               최신 가격, 등록 시간, 안전거래 여부를 실시간으로 수집하고 있습니다.
@@ -197,7 +197,7 @@ export function App() {
       <footer className="bg-white border-t border-gray-200 py-6 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-gray-500">
           <p className="font-semibold text-gray-700 mb-1">
-            번개장터 &amp; 중고나라 가격 비교 스마트 알리미
+            당근마켓 · 번개장터 · 중고나라 가격 비교 스마트 알리미
           </p>
           <p>
             본 서비스는 매초 무분별한 요청 대신 사용자가 필요할 때 클릭하여 수집하는 On-Demand 크롤링 방식을 지원합니다.
@@ -211,7 +211,7 @@ export function App() {
         <button
           onClick={handleTriggerCrawl}
           disabled={isCrawling}
-          className="flex flex-col items-center gap-1 text-red-500 font-bold text-[11px]"
+          className="flex flex-col items-center gap-1 text-orange-500 font-bold text-[11px]"
         >
           <RefreshCw className={`w-5 h-5 ${isCrawling ? 'animate-spin' : ''}`} />
           <span>크롤링</span>

@@ -9,7 +9,7 @@ export function exportToExcel(items, searchKeyword = '전체') {
   // Format data for Excel sheet
   const excelData = items.map((item, index) => ({
     '번호': index + 1,
-    '플랫폼': item.platform === 'bungae' ? '번개장터' : '중고나라',
+    '플랫폼': item.platform === 'daangn' ? '당근마켓' : item.platform === 'bungae' ? '번개장터' : '중고나라',
     '상품명': item.title,
     '가격(원)': item.price,
     '가격(가공)': `${item.price.toLocaleString()}원`,
