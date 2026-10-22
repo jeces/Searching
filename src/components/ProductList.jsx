@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, ShieldCheck, Heart, Eye, MapPin, Clock, AlertCircle } from 'lucide-react';
+import { ExternalLink, ShieldCheck, Heart, Eye, MapPin, Clock, AlertCircle, Info } from 'lucide-react';
 
 export function ProductList({ items, viewMode }) {
   if (!items || items.length === 0) {
@@ -18,220 +18,228 @@ export function ProductList({ items, viewMode }) {
     );
   }
 
-  if (viewMode === 'list') {
-    return (
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-8">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs md:text-sm">
-            <thead className="bg-gray-50 border-b border-gray-200 text-gray-600 font-bold uppercase tracking-wider">
-              <tr>
-                <th className="py-3.5 px-4 text-center">플랫폼</th>
-                <th className="py-3.5 px-4">상품 정보</th>
-                <th className="py-3.5 px-4 text-right">판매 가격</th>
-                <th className="py-3.5 px-4 hidden md:table-cell">지역 / 판매자</th>
-                <th className="py-3.5 px-4 text-center hidden sm:table-cell">안전거래</th>
-                <th className="py-3.5 px-4 text-center">등록시간</th>
-                <th className="py-3.5 px-4 text-center">바로가기</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {items.map((item) => (
-                <tr key={item.id} className="hover:bg-gray-50/80 transition-colors">
-                  {/* Platform */}
-                  <td className="py-3 px-4 text-center align-middle whitespace-nowrap">
-                    {item.platform === 'bungae' ? (
-                      <span className="inline-flex items-center gap-1 bg-red-100 text-red-700 font-bold text-xs px-2.5 py-1 rounded-md">
-                        <span>⚡</span> 번개장터
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 bg-emerald-100 text-emerald-800 font-bold text-xs px-2.5 py-1 rounded-md">
-                        <span>N</span> 중고나라
-                      </span>
-                    )}
-                  </td>
+  return (
+    <div className="mb-8">
+      {/* Notice bar informing user how live links work */}
+      <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-xl flex items-center gap-2.5 text-xs text-blue-800">
+        <Info className="w-4 h-4 text-blue-600 shrink-0" />
+        <span>
+          <strong>[실시간 최신 매물 연동]</strong> '보기' 버튼 클릭 시, 해당 플랫폼(번개장터/중고나라)의 <strong>삭제되지 않은 최신 실시간 매물 검색 페이지</strong>로 즉시 연결됩니다.
+        </span>
+      </div>
 
-                  {/* Title & Image thumbnail */}
-                  <td className="py-3 px-4 align-middle">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={item.imageUrl}
-                        alt={item.title}
-                        className="w-12 h-12 object-cover rounded-lg border border-gray-200 shrink-0 bg-gray-100"
-                        loading="lazy"
-                      />
-                      <div className="min-w-0">
-                        <div className="font-semibold text-gray-900 line-clamp-1 hover:text-red-600 transition-colors">
-                          <a href={item.link} target="_blank" rel="noopener noreferrer">
-                            {item.title}
-                          </a>
-                        </div>
-                        <div className="flex items-center gap-2 mt-1 text-xs text-gray-500">
-                          {item.condition && (
-                            <span className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded font-medium">
-                              {item.condition}
+      {viewMode === 'list' ? (
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs md:text-sm">
+              <thead className="bg-gray-50 border-b border-gray-200 text-gray-600 font-bold uppercase tracking-wider">
+                <tr>
+                  <th className="py-3.5 px-4 text-center">플랫폼</th>
+                  <th className="py-3.5 px-4">상품 정보</th>
+                  <th className="py-3.5 px-4 text-right">판매 가격</th>
+                  <th className="py-3.5 px-4 hidden md:table-cell">지역 / 판매자</th>
+                  <th className="py-3.5 px-4 text-center hidden sm:table-cell">안전거래</th>
+                  <th className="py-3.5 px-4 text-center">등록시간</th>
+                  <th className="py-3.5 px-4 text-center">바로가기</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {items.map((item) => (
+                  <tr key={item.id} className="hover:bg-gray-50/80 transition-colors">
+                    {/* Platform */}
+                    <td className="py-3 px-4 text-center align-middle whitespace-nowrap">
+                      {item.platform === 'bungae' ? (
+                        <span className="inline-flex items-center gap-1 bg-red-100 text-red-700 font-bold text-xs px-2.5 py-1 rounded-md">
+                          <span>⚡</span> 번개장터
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 bg-emerald-100 text-emerald-800 font-bold text-xs px-2.5 py-1 rounded-md">
+                          <span>N</span> 중고나라
+                        </span>
+                      )}
+                    </td>
+
+                    {/* Title & Image thumbnail */}
+                    <td className="py-3 px-4 align-middle">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={item.imageUrl}
+                          alt={item.title}
+                          className="w-12 h-12 object-cover rounded-lg border border-gray-200 shrink-0 bg-gray-100"
+                          loading="lazy"
+                        />
+                        <div className="min-w-0">
+                          <div className="font-semibold text-gray-900 line-clamp-1 hover:text-red-600 transition-colors">
+                            <a href={item.link} target="_blank" rel="noopener noreferrer">
+                              {item.title}
+                            </a>
+                          </div>
+                          <div className="flex items-center gap-2 mt-1 text-xs text-gray-500">
+                            {item.condition && (
+                              <span className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded font-medium">
+                                {item.condition}
+                              </span>
+                            )}
+                            <span className="flex items-center gap-1">
+                              <Heart className="w-3 h-3 text-red-400" /> {item.likes}
                             </span>
-                          )}
-                          <span className="flex items-center gap-1">
-                            <Heart className="w-3 h-3 text-red-400" /> {item.likes}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Eye className="w-3 h-3 text-gray-400" /> {item.views}
-                          </span>
+                            <span className="flex items-center gap-1">
+                              <Eye className="w-3 h-3 text-gray-400" /> {item.views}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </td>
+                    </td>
 
+                    {/* Price */}
+                    <td className="py-3 px-4 text-right align-middle whitespace-nowrap font-extrabold text-base text-gray-900">
+                      {item.price.toLocaleString()}<span className="text-xs font-normal text-gray-600 ml-0.5">원</span>
+                    </td>
+
+                    {/* Location / Seller */}
+                    <td className="py-3 px-4 align-middle hidden md:table-cell text-gray-600">
+                      <div className="line-clamp-1 text-xs font-medium">{item.location}</div>
+                      <div className="text-[11px] text-gray-400">{item.seller}</div>
+                    </td>
+
+                    {/* Safe trade */}
+                    <td className="py-3 px-4 text-center align-middle hidden sm:table-cell whitespace-nowrap">
+                      {item.safeTrade ? (
+                        <span className="inline-flex items-center gap-0.5 text-emerald-600 font-bold text-xs bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                          <ShieldCheck className="w-3.5 h-3.5" /> 가능
+                        </span>
+                      ) : (
+                        <span className="text-gray-400 text-xs">일반거래</span>
+                      )}
+                    </td>
+
+                    {/* Date */}
+                    <td className="py-3 px-4 text-center align-middle whitespace-nowrap text-xs text-gray-500">
+                      {item.date}
+                    </td>
+
+                    {/* Link Button */}
+                    <td className="py-3 px-4 text-center align-middle whitespace-nowrap">
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        title="최신 매물 보기"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : (
+        /* Grid Mode */
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md transition-all duration-200 flex flex-col group"
+            >
+              {/* Card Top Image & Badges */}
+              <div className="relative aspect-4/3 bg-gray-100 overflow-hidden">
+                <img
+                  src={item.imageUrl}
+                  alt={item.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
+
+                {/* Platform Badge Overlay */}
+                <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                  {item.platform === 'bungae' ? (
+                    <span className="bg-red-500/90 backdrop-blur-md text-white font-black text-xs px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1">
+                      <span>⚡</span> 번개장터
+                    </span>
+                  ) : (
+                    <span className="bg-emerald-600/90 backdrop-blur-md text-white font-black text-xs px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1">
+                      <span>N</span> 중고나라
+                    </span>
+                  )}
+                </div>
+
+                {/* Safe Trade Badge Overlay */}
+                {item.safeTrade && (
+                  <div className="absolute top-3 right-3 bg-emerald-500/90 backdrop-blur-md text-white text-[11px] font-bold px-2 py-0.5 rounded-md shadow-md flex items-center gap-1">
+                    <ShieldCheck className="w-3 h-3" /> 안전결제
+                  </div>
+                )}
+
+                {/* Item Condition */}
+                {item.condition && (
+                  <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md text-white text-[11px] font-medium px-2 py-0.5 rounded-md">
+                    {item.condition}
+                  </div>
+                )}
+              </div>
+
+              {/* Card Body */}
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <div>
                   {/* Price */}
-                  <td className="py-3 px-4 text-right align-middle whitespace-nowrap font-extrabold text-base text-gray-900">
-                    {item.price.toLocaleString()}<span className="text-xs font-normal text-gray-600 ml-0.5">원</span>
-                  </td>
+                  <div className="text-xl font-extrabold text-gray-900 mb-1 tracking-tight">
+                    {item.price.toLocaleString()}
+                    <span className="text-xs font-semibold text-gray-600 ml-1">원</span>
+                  </div>
 
-                  {/* Location / Seller */}
-                  <td className="py-3 px-4 align-middle hidden md:table-cell text-gray-600">
-                    <div className="line-clamp-1 text-xs font-medium">{item.location}</div>
-                    <div className="text-[11px] text-gray-400">{item.seller}</div>
-                  </td>
+                  {/* Title */}
+                  <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 mb-3 leading-snug group-hover:text-red-600 transition-colors">
+                    <a href={item.link} target="_blank" rel="noopener noreferrer">
+                      {item.title}
+                    </a>
+                  </h3>
+                </div>
 
-                  {/* Safe trade */}
-                  <td className="py-3 px-4 text-center align-middle hidden sm:table-cell whitespace-nowrap">
-                    {item.safeTrade ? (
-                      <span className="inline-flex items-center gap-0.5 text-emerald-600 font-bold text-xs bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                        <ShieldCheck className="w-3.5 h-3.5" /> 가능
+                {/* Meta Info */}
+                <div className="pt-3 border-t border-gray-100 flex flex-col gap-2 text-xs text-gray-500">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1 text-gray-500 truncate max-w-[170px]">
+                      <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                      <span className="truncate">{item.location}</span>
+                    </div>
+                    <div className="flex items-center gap-1 text-gray-400 shrink-0">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>{item.date}</span>
+                    </div>
+                  </div>
+
+                  {/* Bottom Actions: Views/Likes + Link Button */}
+                  <div className="flex items-center justify-between pt-1">
+                    <div className="flex items-center gap-3 text-gray-400 text-[11px]">
+                      <span className="flex items-center gap-1">
+                        <Heart className="w-3 h-3 text-red-400" /> {item.likes}
                       </span>
-                    ) : (
-                      <span className="text-gray-400 text-xs">일반거래</span>
-                    )}
-                  </td>
+                      <span className="flex items-center gap-1">
+                        <Eye className="w-3 h-3 text-gray-400" /> {item.views}
+                      </span>
+                      <span className="text-gray-400">· {item.seller}</span>
+                    </div>
 
-                  {/* Date */}
-                  <td className="py-3 px-4 text-center align-middle whitespace-nowrap text-xs text-gray-500">
-                    {item.date}
-                  </td>
-
-                  {/* Link Button */}
-                  <td className="py-3 px-4 text-center align-middle whitespace-nowrap">
                     <a
                       href={item.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                      title="원문 게시글 보기"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 bg-gray-100 hover:bg-red-500 hover:text-white text-gray-700 font-semibold text-xs rounded-lg transition-all"
                     >
-                      <ExternalLink className="w-4 h-4" />
+                      <span>최신매물보기</span>
+                      <ExternalLink className="w-3 h-3" />
                     </a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
-    );
-  }
-
-  // Grid Mode (Default Responsive Cards)
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 mb-8">
-      {items.map((item) => (
-        <div
-          key={item.id}
-          className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md transition-all duration-200 flex flex-col group"
-        >
-          {/* Card Top Image & Badges */}
-          <div className="relative aspect-4/3 bg-gray-100 overflow-hidden">
-            <img
-              src={item.imageUrl}
-              alt={item.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              loading="lazy"
-            />
-
-            {/* Platform Badge Overlay */}
-            <div className="absolute top-3 left-3 flex items-center gap-1.5">
-              {item.platform === 'bungae' ? (
-                <span className="bg-red-500/90 backdrop-blur-md text-white font-black text-xs px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1">
-                  <span>⚡</span> 번개장터
-                </span>
-              ) : (
-                <span className="bg-emerald-600/90 backdrop-blur-md text-white font-black text-xs px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1">
-                  <span>N</span> 중고나라
-                </span>
-              )}
-            </div>
-
-            {/* Safe Trade Badge Overlay */}
-            {item.safeTrade && (
-              <div className="absolute top-3 right-3 bg-emerald-500/90 backdrop-blur-md text-white text-[11px] font-bold px-2 py-0.5 rounded-md shadow-md flex items-center gap-1">
-                <ShieldCheck className="w-3 h-3" /> 안전결제
-              </div>
-            )}
-
-            {/* Item Condition */}
-            {item.condition && (
-              <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md text-white text-[11px] font-medium px-2 py-0.5 rounded-md">
-                {item.condition}
-              </div>
-            )}
-          </div>
-
-          {/* Card Body */}
-          <div className="p-4 flex-1 flex flex-col justify-between">
-            <div>
-              {/* Price */}
-              <div className="text-xl font-extrabold text-gray-900 mb-1 tracking-tight">
-                {item.price.toLocaleString()}
-                <span className="text-xs font-semibold text-gray-600 ml-1">원</span>
-              </div>
-
-              {/* Title */}
-              <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 mb-3 leading-snug group-hover:text-red-600 transition-colors">
-                <a href={item.link} target="_blank" rel="noopener noreferrer">
-                  {item.title}
-                </a>
-              </h3>
-            </div>
-
-            {/* Meta Info */}
-            <div className="pt-3 border-t border-gray-100 flex flex-col gap-2 text-xs text-gray-500">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1 text-gray-500 truncate max-w-[170px]">
-                  <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-                  <span className="truncate">{item.location}</span>
-                </div>
-                <div className="flex items-center gap-1 text-gray-400 shrink-0">
-                  <Clock className="w-3.5 h-3.5" />
-                  <span>{item.date}</span>
-                </div>
-              </div>
-
-              {/* Bottom Actions: Views/Likes + Link Button */}
-              <div className="flex items-center justify-between pt-1">
-                <div className="flex items-center gap-3 text-gray-400 text-[11px]">
-                  <span className="flex items-center gap-1">
-                    <Heart className="w-3 h-3 text-red-400" /> {item.likes}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Eye className="w-3 h-3 text-gray-400" /> {item.views}
-                  </span>
-                  <span className="text-gray-400">· {item.seller}</span>
-                </div>
-
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-2.5 py-1 bg-gray-100 hover:bg-red-500 hover:text-white text-gray-700 font-semibold text-xs rounded-lg transition-all"
-                >
-                  <span>보기</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      ))}
+      )}
     </div>
   );
 }
