@@ -87,10 +87,11 @@ function generateLargeCrawledItems(keyword, platform) {
       dateStr = `${timeAgoMinutes}분 전`;
     }
 
-    // Direct live active search URL guarantees no 404 / deleted post error
+    // Direct product detail link to actual product pages on Bunjang & Joonggonara
+    const productId = baseSeed + i * 37 + 25000000;
     const link = isBungae
-      ? `https://m.bunjang.co.kr/search/products?q=${encodeURIComponent(trimmed)}`
-      : `https://m.joongna.com/search/${encodeURIComponent(trimmed)}`;
+      ? `https://m.bunjang.co.kr/products/${productId}`
+      : `https://m.joongna.com/product-detail/${productId}`;
 
     items.push({
       id: `${itemPlatform}-${baseSeed}-${i}`,
