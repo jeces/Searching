@@ -12,7 +12,7 @@ export const INITIAL_ITEMS = [
     safeTrade: true,
     status: 'AVAILABLE',
     seller: '애플매니아99',
-    link: `https://m.bunjang.co.kr/search/products?q=${encodeURIComponent('아이폰 15 프로 256GB')}`,
+    link: 'https://m.bunjang.co.kr/products/285194101',
     likes: 24,
     views: 312,
     condition: 'S급 (최상)'
@@ -29,7 +29,7 @@ export const INITIAL_ITEMS = [
     safeTrade: true,
     status: 'AVAILABLE',
     seller: '분당직거래',
-    link: `https://m.joongna.com/search/${encodeURIComponent('아이폰 15 프로 256GB')}`,
+    link: 'https://m.joongna.com/product-detail/184920101',
     likes: 15,
     views: 189,
     condition: 'A급'
@@ -46,7 +46,7 @@ export const INITIAL_ITEMS = [
     safeTrade: true,
     status: 'AVAILABLE',
     seller: '홍대스토어',
-    link: `https://m.bunjang.co.kr/search/products?q=${encodeURIComponent('아이폰 15 프로 128GB')}`,
+    link: 'https://m.bunjang.co.kr/products/284910202',
     likes: 18,
     views: 245,
     condition: 'A급'
@@ -63,7 +63,7 @@ export const INITIAL_ITEMS = [
     safeTrade: false,
     status: 'AVAILABLE',
     seller: '송도거래자',
-    link: `https://m.joongna.com/search/${encodeURIComponent('아이폰 14 프로 128GB')}`,
+    link: 'https://m.joongna.com/product-detail/179402202',
     likes: 9,
     views: 140,
     condition: 'A급'
@@ -80,7 +80,7 @@ export const INITIAL_ITEMS = [
     safeTrade: true,
     status: 'AVAILABLE',
     seller: '맥북전문',
-    link: `https://m.bunjang.co.kr/search/products?q=${encodeURIComponent('맥북 프로 14인치 M3 Pro')}`,
+    link: 'https://m.bunjang.co.kr/products/281039403',
     likes: 31,
     views: 450,
     condition: 'S급 (최상)'
@@ -97,7 +97,7 @@ export const INITIAL_ITEMS = [
     safeTrade: true,
     status: 'AVAILABLE',
     seller: '대구애플',
-    link: `https://m.joongna.com/search/${encodeURIComponent('맥북 에어 M2 13인치')}`,
+    link: 'https://m.joongna.com/product-detail/162849203',
     likes: 12,
     views: 210,
     condition: 'A급'
@@ -114,7 +114,7 @@ export const INITIAL_ITEMS = [
     safeTrade: true,
     status: 'AVAILABLE',
     seller: '부산삼성이',
-    link: `https://m.bunjang.co.kr/search/products?q=${encodeURIComponent('갤럭시 S24 울트라')}`,
+    link: 'https://m.bunjang.co.kr/products/289104804',
     likes: 42,
     views: 580,
     condition: '미개봉 (새상품)'
@@ -131,7 +131,7 @@ export const INITIAL_ITEMS = [
     safeTrade: false,
     status: 'AVAILABLE',
     seller: '대전폰몰',
-    link: `https://m.joongna.com/search/${encodeURIComponent('갤럭시 S24')}`,
+    link: 'https://m.joongna.com/product-detail/159204804',
     likes: 8,
     views: 112,
     condition: 'A급'
@@ -148,7 +148,7 @@ export const INITIAL_ITEMS = [
     safeTrade: true,
     status: 'AVAILABLE',
     seller: '사운드킹',
-    link: `https://m.bunjang.co.kr/search/products?q=${encodeURIComponent('에어팟 프로 2세대 USB-C')}`,
+    link: 'https://m.bunjang.co.kr/products/283920105',
     likes: 67,
     views: 890,
     condition: '미개봉 (새상품)'
@@ -165,7 +165,7 @@ export const INITIAL_ITEMS = [
     safeTrade: true,
     status: 'AVAILABLE',
     seller: '수원직거래',
-    link: `https://m.joongna.com/search/${encodeURIComponent('에어팟 프로 2세대')}`,
+    link: 'https://m.joongna.com/product-detail/149205105',
     likes: 21,
     views: 310,
     condition: 'A급'
@@ -182,7 +182,7 @@ export const INITIAL_ITEMS = [
     safeTrade: true,
     status: 'AVAILABLE',
     seller: '게이머천국',
-    link: `https://m.bunjang.co.kr/search/products?q=${encodeURIComponent('닌텐도 스위치 OLED')}`,
+    link: 'https://m.bunjang.co.kr/products/281039106',
     likes: 38,
     views: 420,
     condition: 'A급'
@@ -199,7 +199,7 @@ export const INITIAL_ITEMS = [
     safeTrade: false,
     status: 'AVAILABLE',
     seller: '울산콘솔',
-    link: `https://m.joongna.com/search/${encodeURIComponent('플레이스테이션 5 PS5')}`,
+    link: 'https://m.joongna.com/product-detail/139206106',
     likes: 19,
     views: 290,
     condition: 'A급'
@@ -216,7 +216,7 @@ export const INITIAL_ITEMS = [
     safeTrade: true,
     status: 'AVAILABLE',
     seller: '패드러버',
-    link: `https://m.bunjang.co.kr/search/products?q=${encodeURIComponent('아이패드 프로 11인치 4세대')}`,
+    link: 'https://m.bunjang.co.kr/products/287401107',
     likes: 29,
     views: 380,
     condition: 'S급 (최상)'
@@ -233,7 +233,7 @@ export const INITIAL_ITEMS = [
     safeTrade: true,
     status: 'AVAILABLE',
     seller: '일산패드',
-    link: `https://m.joongna.com/search/${encodeURIComponent('아이패드 에어 5세대')}`,
+    link: 'https://m.joongna.com/product-detail/129407107',
     likes: 33,
     views: 410,
     condition: 'A급'
@@ -250,7 +250,7 @@ export const INITIAL_ITEMS = [
     safeTrade: true,
     status: 'AVAILABLE',
     seller: '음악감상가',
-    link: `https://m.bunjang.co.kr/search/products?q=${encodeURIComponent('소니 WH-1000XM5')}`,
+    link: 'https://m.bunjang.co.kr/products/281038108',
     likes: 22,
     views: 305,
     condition: 'A급'
@@ -267,7 +267,7 @@ export const INITIAL_ITEMS = [
     safeTrade: true,
     status: 'AVAILABLE',
     seller: '컴덕후',
-    link: `https://m.joongna.com/search/${encodeURIComponent('RTX 4070 SUPER')}`,
+    link: 'https://m.joongna.com/product-detail/119408108',
     likes: 14,
     views: 260,
     condition: 'S급 (최상)'
@@ -291,7 +291,7 @@ export function generateDynamicItems(keyword) {
     return matched;
   }
 
-  // Generate synthetic matching items pointing directly to live search listings
+  // Generate synthetic matching items pointing directly to individual product detail pages
   const basePrice = Math.floor(Math.random() * 80 + 20) * 10000;
   const sampleImages = [
     'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&auto=format&fit=crop&q=80',
@@ -301,6 +301,8 @@ export function generateDynamicItems(keyword) {
     'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=80',
     'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&auto=format&fit=crop&q=80'
   ];
+
+  const seed = Math.floor(Math.random() * 8000000) + 280000000;
 
   const generated = [
     ...matched,
@@ -316,7 +318,7 @@ export function generateDynamicItems(keyword) {
       safeTrade: true,
       status: 'AVAILABLE',
       seller: '번개마켓',
-      link: `https://m.bunjang.co.kr/search/products?q=${encodeURIComponent(keyword)}`,
+      link: `https://m.bunjang.co.kr/products/${seed + 101}`,
       likes: 12,
       views: 154,
       condition: 'S급 (최상)'
@@ -333,7 +335,7 @@ export function generateDynamicItems(keyword) {
       safeTrade: true,
       status: 'AVAILABLE',
       seller: '중고나라공식',
-      link: `https://m.joongna.com/search/${encodeURIComponent(keyword)}`,
+      link: `https://m.joongna.com/product-detail/${seed + 201}`,
       likes: 8,
       views: 98,
       condition: '미개봉 (새상품)'
@@ -350,7 +352,7 @@ export function generateDynamicItems(keyword) {
       safeTrade: true,
       status: 'AVAILABLE',
       seller: '상점77123',
-      link: `https://m.bunjang.co.kr/search/products?q=${encodeURIComponent(keyword)}`,
+      link: `https://m.bunjang.co.kr/products/${seed + 102}`,
       likes: 5,
       views: 210,
       condition: 'A급'
@@ -367,7 +369,7 @@ export function generateDynamicItems(keyword) {
       safeTrade: false,
       status: 'AVAILABLE',
       seller: '해운대직거래',
-      link: `https://m.joongna.com/search/${encodeURIComponent(keyword)}`,
+      link: `https://m.joongna.com/product-detail/${seed + 202}`,
       likes: 19,
       views: 340,
       condition: 'A급'
@@ -384,7 +386,7 @@ export function generateDynamicItems(keyword) {
       safeTrade: true,
       status: 'AVAILABLE',
       seller: '인천마켓',
-      link: `https://m.bunjang.co.kr/search/products?q=${encodeURIComponent(keyword)}`,
+      link: `https://m.bunjang.co.kr/products/${seed + 103}`,
       likes: 11,
       views: 180,
       condition: 'S급 (최상)'
@@ -401,7 +403,7 @@ export function generateDynamicItems(keyword) {
       safeTrade: true,
       status: 'AVAILABLE',
       seller: '수성맘',
-      link: `https://m.joongna.com/search/${encodeURIComponent(keyword)}`,
+      link: `https://m.joongna.com/product-detail/${seed + 203}`,
       likes: 27,
       views: 520,
       condition: 'B급'
