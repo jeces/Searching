@@ -1,7 +1,7 @@
 @echo off
 title Secondhand Price Search App
 echo =========================================================
-echo  Starting Secondhand Market Price App (Bungae and Joonggo)...
+echo  Starting Secondhand Market Price App Server and Web Client...
 echo =========================================================
 echo.
 
@@ -16,7 +16,11 @@ echo [INFO] Installing required dependencies...
 call npm install
 
 echo.
-echo [INFO] Starting development web server at http://localhost:3000 ...
+echo [INFO] Starting Backend Crawling Server on http://localhost:4000 ...
+start /b node server.js > server.log 2>&1
+
+echo.
+echo [INFO] Starting Frontend Application on http://localhost:3000 ...
 echo.
 
 call npm run dev -- --open

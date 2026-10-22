@@ -3,9 +3,10 @@ import { Header } from './components/Header';
 import { StatsDashboard } from './components/StatsDashboard';
 import { FilterToolbar } from './components/FilterToolbar';
 import { ProductList } from './components/ProductList';
+import { ProductDetailModal } from './components/ProductDetailModal';
 import { crawlLiveSearchData, filterAndSortItems, calculateStats } from './services/searchService';
 import { exportToExcel } from './utils/excelExport';
-import { Search, Compass, Heart, User, Sparkles, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { Compass, Heart, User, Sparkles, RefreshCw, CheckCircle2 } from 'lucide-react';
 
 const POPULAR_TAGS = ['아이폰 15', '맥북 프로', '갤럭시 S24', '에어팟 프로', '닌텐도 스위치', 'PS5', '아이패드'];
 
@@ -15,6 +16,9 @@ export function App() {
   const [items, setItems] = useState([]);
   const [isCrawling, setIsCrawling] = useState(false);
   const [lastCrawledAt, setLastCrawledAt] = useState(null);
+
+  // Selected Item for Product Detail Modal
+  const [selectedItem, setSelectedItem] = useState(null);
 
   // Platform Filter: 'all', 'bungae', 'joonggo'
   const [platformFilter, setPlatformFilter] = useState('all');
@@ -90,6 +94,14 @@ export function App() {
 
   const handleExportExcel = () => {
     exportToExcel(filteredItems, currentKeyword);
+  };
+
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedItem(null);
   };
 
   return (
@@ -171,10 +183,15 @@ export function App() {
             </p>
           </div>
         ) : (
-          <ProductList items={filteredItems} viewMode={viewMode} />
+          <ProductList items={filteredItems} viewMode={viewMode} onItemClick={handleItemClick} />
         )}
 
       </main>
+
+      {/* Product Detail Modal View */}
+      {selectedItem && (
+        <ProductDetailModal item={selectedItem} onClose={handleCloseModal} />
+      )}
 
       {/* Footer */}
       <footer className="bg-white border-t border-gray-200 py-6 mt-auto">

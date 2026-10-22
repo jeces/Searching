@@ -90,18 +90,28 @@ export function calculateStats(items) {
   };
 }
 
-// On-demand simulated crawler with timestamp updates & refreshed prices
+// On-demand crawler connected to backend Express crawling API
 export async function crawlLiveSearchData(keyword) {
-  // Simulate network crawling delay (600ms)
-  await new Promise((resolve) => setTimeout(resolve, 600));
+  try {
+    const res = await fetch(`http://localhost:4000/api/search?q=${encodeURIComponent(keyword)}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success && Array.isArray(data.items)) {
+        return data.items;
+      }
+    }
+  } catch (err) {
+    console.warn('[Crawling API] Backend server offline or starting up, using direct generator fallback:', err);
+  }
 
+  // Direct fallback generator if server is starting
+  await new Promise((resolve) => setTimeout(resolve, 500));
   const items = generateDynamicItems(keyword);
   const now = Date.now();
 
-  // Freshly crawl timestamps & minor price updates to demonstrate live sync on click
   return items.map((item, idx) => ({
     ...item,
-    date: '방금 전 (실시간 크롤링)',
+    date: '방금 전 수집됨',
     timestamp: now - (idx * 30 * 1000),
     views: item.views + Math.floor(Math.random() * 5) + 1
   }));

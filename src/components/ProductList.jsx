@@ -1,7 +1,7 @@
 import React from 'react';
-import { ExternalLink, ShieldCheck, Heart, Eye, MapPin, Clock, AlertCircle, Info } from 'lucide-react';
+import { ExternalLink, ShieldCheck, Heart, Eye, MapPin, Clock, AlertCircle } from 'lucide-react';
 
-export function ProductList({ items, viewMode }) {
+export function ProductList({ items, viewMode, onItemClick }) {
   if (!items || items.length === 0) {
     return (
       <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center my-8 shadow-xs">
@@ -20,14 +20,6 @@ export function ProductList({ items, viewMode }) {
 
   return (
     <div className="mb-8">
-      {/* Notice bar informing user how live links work */}
-      <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-xl flex items-center gap-2.5 text-xs text-blue-800">
-        <Info className="w-4 h-4 text-blue-600 shrink-0" />
-        <span>
-          <strong>[실시간 최신 매물 연동]</strong> '보기' 버튼 클릭 시, 해당 플랫폼(번개장터/중고나라)의 <strong>삭제되지 않은 최신 실시간 매물 검색 페이지</strong>로 즉시 연결됩니다.
-        </span>
-      </div>
-
       {viewMode === 'list' ? (
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
@@ -40,14 +32,18 @@ export function ProductList({ items, viewMode }) {
                   <th className="py-3.5 px-4 hidden md:table-cell">지역 / 판매자</th>
                   <th className="py-3.5 px-4 text-center hidden sm:table-cell">안전거래</th>
                   <th className="py-3.5 px-4 text-center">등록시간</th>
-                  <th className="py-3.5 px-4 text-center">바로가기</th>
+                  <th className="py-3.5 px-4 text-center">상세보기</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {items.map((item) => (
-                  <tr key={item.id} className="hover:bg-gray-50/80 transition-colors">
+                  <tr
+                    key={item.id}
+                    onClick={() => onItemClick && onItemClick(item)}
+                    className="hover:bg-red-50/50 cursor-pointer transition-colors group"
+                  >
                     {/* Platform */}
-                    <td className="py-3 px-4 text-center align-middle whitespace-nowrap">
+                    <td className="py-3.5 px-4 text-center align-middle whitespace-nowrap">
                       {item.platform === 'bungae' ? (
                         <span className="inline-flex items-center gap-1 bg-red-100 text-red-700 font-bold text-xs px-2.5 py-1 rounded-md">
                           <span>⚡</span> 번개장터
@@ -60,7 +56,7 @@ export function ProductList({ items, viewMode }) {
                     </td>
 
                     {/* Title & Image thumbnail */}
-                    <td className="py-3 px-4 align-middle">
+                    <td className="py-3.5 px-4 align-middle">
                       <div className="flex items-center gap-3">
                         <img
                           src={item.imageUrl}
@@ -69,10 +65,8 @@ export function ProductList({ items, viewMode }) {
                           loading="lazy"
                         />
                         <div className="min-w-0">
-                          <div className="font-semibold text-gray-900 line-clamp-1 hover:text-red-600 transition-colors">
-                            <a href={item.link} target="_blank" rel="noopener noreferrer">
-                              {item.title}
-                            </a>
+                          <div className="font-semibold text-gray-900 line-clamp-1 group-hover:text-red-600 transition-colors">
+                            {item.title}
                           </div>
                           <div className="flex items-center gap-2 mt-1 text-xs text-gray-500">
                             {item.condition && (
@@ -92,18 +86,18 @@ export function ProductList({ items, viewMode }) {
                     </td>
 
                     {/* Price */}
-                    <td className="py-3 px-4 text-right align-middle whitespace-nowrap font-extrabold text-base text-gray-900">
+                    <td className="py-3.5 px-4 text-right align-middle whitespace-nowrap font-extrabold text-base text-gray-900">
                       {item.price.toLocaleString()}<span className="text-xs font-normal text-gray-600 ml-0.5">원</span>
                     </td>
 
                     {/* Location / Seller */}
-                    <td className="py-3 px-4 align-middle hidden md:table-cell text-gray-600">
+                    <td className="py-3.5 px-4 align-middle hidden md:table-cell text-gray-600">
                       <div className="line-clamp-1 text-xs font-medium">{item.location}</div>
                       <div className="text-[11px] text-gray-400">{item.seller}</div>
                     </td>
 
                     {/* Safe trade */}
-                    <td className="py-3 px-4 text-center align-middle hidden sm:table-cell whitespace-nowrap">
+                    <td className="py-3.5 px-4 text-center align-middle hidden sm:table-cell whitespace-nowrap">
                       {item.safeTrade ? (
                         <span className="inline-flex items-center gap-0.5 text-emerald-600 font-bold text-xs bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                           <ShieldCheck className="w-3.5 h-3.5" /> 가능
@@ -114,21 +108,22 @@ export function ProductList({ items, viewMode }) {
                     </td>
 
                     {/* Date */}
-                    <td className="py-3 px-4 text-center align-middle whitespace-nowrap text-xs text-gray-500">
+                    <td className="py-3.5 px-4 text-center align-middle whitespace-nowrap text-xs text-gray-500">
                       {item.date}
                     </td>
 
-                    {/* Link Button */}
-                    <td className="py-3 px-4 text-center align-middle whitespace-nowrap">
-                      <a
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                        title="최신 매물 보기"
+                    {/* Action */}
+                    <td className="py-3.5 px-4 text-center align-middle whitespace-nowrap">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onItemClick && onItemClick(item);
+                        }}
+                        className="inline-flex items-center gap-1 px-3 py-1.5 bg-red-500 text-white font-bold text-xs rounded-lg shadow-xs hover:bg-red-600 transition-colors"
                       >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
+                        <span>매물상세</span>
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -142,7 +137,8 @@ export function ProductList({ items, viewMode }) {
           {items.map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md transition-all duration-200 flex flex-col group"
+              onClick={() => onItemClick && onItemClick(item)}
+              className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs hover:shadow-md hover:border-red-300 transition-all duration-200 flex flex-col group cursor-pointer"
             >
               {/* Card Top Image & Badges */}
               <div className="relative aspect-4/3 bg-gray-100 overflow-hidden">
@@ -192,9 +188,7 @@ export function ProductList({ items, viewMode }) {
 
                   {/* Title */}
                   <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 mb-3 leading-snug group-hover:text-red-600 transition-colors">
-                    <a href={item.link} target="_blank" rel="noopener noreferrer">
-                      {item.title}
-                    </a>
+                    {item.title}
                   </h3>
                 </div>
 
@@ -211,7 +205,7 @@ export function ProductList({ items, viewMode }) {
                     </div>
                   </div>
 
-                  {/* Bottom Actions: Views/Likes + Link Button */}
+                  {/* Bottom Actions */}
                   <div className="flex items-center justify-between pt-1">
                     <div className="flex items-center gap-3 text-gray-400 text-[11px]">
                       <span className="flex items-center gap-1">
@@ -223,15 +217,16 @@ export function ProductList({ items, viewMode }) {
                       <span className="text-gray-400">· {item.seller}</span>
                     </div>
 
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2.5 py-1 bg-gray-100 hover:bg-red-500 hover:text-white text-gray-700 font-semibold text-xs rounded-lg transition-all"
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onItemClick && onItemClick(item);
+                      }}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 bg-red-500 text-white font-semibold text-xs rounded-lg shadow-xs hover:bg-red-600 transition-all"
                     >
-                      <span>최신매물보기</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
+                      <span>상세보기</span>
+                    </button>
                   </div>
                 </div>
 
